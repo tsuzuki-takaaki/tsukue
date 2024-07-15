@@ -1,0 +1,3 @@
+- 明らかに外部キーであっても、外部キー制約を追加しない方がいいこともある
+    - reinit時のtruncateの部分でconstraintsが効いてしまってバグる
+    - index only
