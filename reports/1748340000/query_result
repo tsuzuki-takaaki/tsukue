@@ -1,0 +1,701 @@
+*************************** 1. row ***************************
+                SCHEMA_NAME: isuride
+                DIGEST_TEXT: SELECT STATUS FROM `ride_statuses` WHERE `ride_id` = ? ORDER BY `created_at` DESC LIMIT ?
+                 COUNT_STAR: 7020
+         SUM_TIMER_WAIT_SEC: 414.582
+         MIN_TIMER_WAIT_SEC: 0.002
+         AVG_TIMER_WAIT_SEC: 0.059
+         MAX_TIMER_WAIT_SEC: 0.155
+          SUM_LOCK_TIME_SEC: 0.011
+                        P95: 0.091
+                        P99: 0.1
+                       P999: 0.126
+                 SUM_ERRORS: 0
+               SUM_WARNINGS: 0
+          SUM_ROWS_AFFECTED: 0
+              SUM_ROWS_SENT: 7020
+          SUM_ROWS_EXAMINED: 32017864
+SUM_CREATED_TMP_DISK_TABLES: 0
+     SUM_CREATED_TMP_TABLES: 0
+       SUM_SELECT_FULL_JOIN: 0
+ SUM_SELECT_FULL_RANGE_JOIN: 0
+           SUM_SELECT_RANGE: 0
+     SUM_SELECT_RANGE_CHECK: 0
+            SUM_SELECT_SCAN: 7020
+      SUM_SORT_MERGE_PASSES: 0
+             SUM_SORT_RANGE: 0
+              SUM_SORT_ROWS: 7020
+              SUM_SORT_SCAN: 7020
+          SUM_NO_INDEX_USED: 7020
+     SUM_NO_GOOD_INDEX_USED: 0
+   MAX_CONTROLLED_MEMORY_MB: 1.141
+        MAX_TOTAL_MEMORY_MB: 30.151
+          QUERY_SAMPLE_TEXT: SELECT status FROM ride_statuses WHERE ride_id = '01JX75824PYDH6E1KFQJY2QBWZ' ORDER BY created_at DESC LIMIT 1
+QUERY_SAMPLE_TIMER_WAIT_SEC: 0.155
+*************************** 2. row ***************************
+                SCHEMA_NAME: isuride
+                DIGEST_TEXT: SELECT `id` , `owner_id` , NAME , `access_token` , `model` , `is_active` , `created_at` , `updated_at` , `IFNULL` ( `total_distance` , ? ) AS `total_distance` , `total_distance_updated_at` FROM `chairs` LEFT JOIN ( SELECT `chair_id` , SUM ( `IFNULL` ( `distance` , ? ) ) AS `total_distance` , MAX ( `created_at` ) AS `total_distance_updated_at` FROM ( SELECT `chair_id` , `created_at` , `ABS` ( `latitude` - LAG ( `latitude` ) OVER ( PARTITION BY `chair_id` ORDER BY `created_at` ) ) + `ABS` ( `longitude` - LAG ( `longitude` ) OVER ( PARTITION BY `chair_id` ORDER BY `created_at` ) ) AS `distance` FROM `chair_locations` ) `tmp` GROUP BY `chair_id` ) `distance_table` ON `distance_table` . `chair_id` = `chairs` . `id` WHERE `owner_id` = ?
+                 COUNT_STAR: 43
+         SUM_TIMER_WAIT_SEC: 255.317
+         MIN_TIMER_WAIT_SEC: 0.164
+         AVG_TIMER_WAIT_SEC: 5.938
+         MAX_TIMER_WAIT_SEC: 8.348
+          SUM_LOCK_TIME_SEC: 0
+                        P95: 8.71
+                        P99: 8.71
+                       P999: 8.71
+                 SUM_ERRORS: 0
+               SUM_WARNINGS: 0
+          SUM_ROWS_AFFECTED: 0
+              SUM_ROWS_SENT: 271
+          SUM_ROWS_EXAMINED: 22606
+SUM_CREATED_TMP_DISK_TABLES: 0
+     SUM_CREATED_TMP_TABLES: 258
+       SUM_SELECT_FULL_JOIN: 0
+ SUM_SELECT_FULL_RANGE_JOIN: 0
+           SUM_SELECT_RANGE: 0
+     SUM_SELECT_RANGE_CHECK: 0
+            SUM_SELECT_SCAN: 129
+      SUM_SORT_MERGE_PASSES: 43
+             SUM_SORT_RANGE: 0
+              SUM_SORT_ROWS: 943104
+              SUM_SORT_SCAN: 43
+          SUM_NO_INDEX_USED: 43
+     SUM_NO_GOOD_INDEX_USED: 0
+   MAX_CONTROLLED_MEMORY_MB: 33.386
+        MAX_TOTAL_MEMORY_MB: 62.389
+          QUERY_SAMPLE_TEXT: SELECT id,
+owner_id,
+name,
+access_token,
+model,
+is_active,
+created_at,
+updated_at,
+IFNULL(total_distance, 0) AS total_distance,
+total_distance_updated_at
+FROM chairs
+LEFT JOIN (SELECT chair_id,
+                   SUM(IFNULL(distance, 0)) AS total_distance,
+                   MAX(created_at)          AS total_distance_updated_at
+            FROM (SELECT chair_id,
+                         created_at,
+                         ABS(latitude - LAG(latitude) OVER (PARTITION BY chair_id ORDER BY created_at)) +
+                         ABS(longitude - LAG(longitude) OVER (PARTITION BY chair_id ORDER BY created_at)) AS distance
+                  FROM chair_locations) tmp
+            GROUP BY chair_id) distance_table ON distance_table.chair_id = chairs.id
+WHERE owner_id = '01JX7579PKHFAYTVHB95G0FSR8'
+QUERY_SAMPLE_TIMER_WAIT_SEC: 8.348
+*************************** 3. row ***************************
+                SCHEMA_NAME: isuride
+                DIGEST_TEXT: SELECT * FROM `ride_statuses` WHERE `ride_id` = ? AND `chair_sent_at` IS NULL ORDER BY `created_at` ASC LIMIT ?
+                 COUNT_STAR: 2717
+         SUM_TIMER_WAIT_SEC: 199.586
+         MIN_TIMER_WAIT_SEC: 0.018
+         AVG_TIMER_WAIT_SEC: 0.073
+         MAX_TIMER_WAIT_SEC: 0.137
+          SUM_LOCK_TIME_SEC: 0.003
+                        P95: 0.105
+                        P99: 0.12
+                       P999: 0.138
+                 SUM_ERRORS: 0
+               SUM_WARNINGS: 0
+          SUM_ROWS_AFFECTED: 0
+              SUM_ROWS_SENT: 102
+          SUM_ROWS_EXAMINED: 12400626
+SUM_CREATED_TMP_DISK_TABLES: 0
+     SUM_CREATED_TMP_TABLES: 0
+       SUM_SELECT_FULL_JOIN: 0
+ SUM_SELECT_FULL_RANGE_JOIN: 0
+           SUM_SELECT_RANGE: 0
+     SUM_SELECT_RANGE_CHECK: 0
+            SUM_SELECT_SCAN: 2717
+      SUM_SORT_MERGE_PASSES: 0
+             SUM_SORT_RANGE: 0
+              SUM_SORT_ROWS: 102
+              SUM_SORT_SCAN: 2717
+          SUM_NO_INDEX_USED: 2717
+     SUM_NO_GOOD_INDEX_USED: 0
+   MAX_CONTROLLED_MEMORY_MB: 1.147
+        MAX_TOTAL_MEMORY_MB: 30.158
+          QUERY_SAMPLE_TEXT: SELECT * FROM ride_statuses WHERE ride_id = '01JX758D3H1S5G7RDS9T6SXC1K' AND chair_sent_at IS NULL ORDER BY created_at ASC LIMIT 1
+QUERY_SAMPLE_TIMER_WAIT_SEC: 0.137
+*************************** 4. row ***************************
+                SCHEMA_NAME: isuride
+                DIGEST_TEXT: SELECT * FROM `ride_statuses` WHERE `ride_id` = ? AND `app_sent_at` IS NULL ORDER BY `created_at` ASC LIMIT ?
+                 COUNT_STAR: 1878
+         SUM_TIMER_WAIT_SEC: 134.367
+         MIN_TIMER_WAIT_SEC: 0.022
+         AVG_TIMER_WAIT_SEC: 0.072
+         MAX_TIMER_WAIT_SEC: 0.139
+          SUM_LOCK_TIME_SEC: 0.002
+                        P95: 0.105
+                        P99: 0.12
+                       P999: 0.138
+                 SUM_ERRORS: 0
+               SUM_WARNINGS: 0
+          SUM_ROWS_AFFECTED: 0
+              SUM_ROWS_SENT: 101
+          SUM_ROWS_EXAMINED: 8558405
+SUM_CREATED_TMP_DISK_TABLES: 0
+     SUM_CREATED_TMP_TABLES: 0
+       SUM_SELECT_FULL_JOIN: 0
+ SUM_SELECT_FULL_RANGE_JOIN: 0
+           SUM_SELECT_RANGE: 0
+     SUM_SELECT_RANGE_CHECK: 0
+            SUM_SELECT_SCAN: 1878
+      SUM_SORT_MERGE_PASSES: 0
+             SUM_SORT_RANGE: 0
+              SUM_SORT_ROWS: 101
+              SUM_SORT_SCAN: 1878
+          SUM_NO_INDEX_USED: 1878
+     SUM_NO_GOOD_INDEX_USED: 0
+   MAX_CONTROLLED_MEMORY_MB: 1.146
+        MAX_TOTAL_MEMORY_MB: 30.158
+          QUERY_SAMPLE_TEXT: SELECT * FROM ride_statuses WHERE ride_id = '01JX758DB0TQEQHF4NYHHH2WXW' AND app_sent_at IS NULL ORDER BY created_at ASC LIMIT 1
+QUERY_SAMPLE_TIMER_WAIT_SEC: 0.139
+*************************** 5. row ***************************
+                SCHEMA_NAME: isuride
+                DIGEST_TEXT: SELECT * FROM `chair_locations` WHERE `chair_id` = ? ORDER BY `created_at` DESC LIMIT ?
+                 COUNT_STAR: 469
+         SUM_TIMER_WAIT_SEC: 125.553
+         MIN_TIMER_WAIT_SEC: 0.106
+         AVG_TIMER_WAIT_SEC: 0.268
+         MAX_TIMER_WAIT_SEC: 0.463
+          SUM_LOCK_TIME_SEC: 0.001
+                        P95: 0.437
+                        P99: 0.457
+                       P999: 0.479
+                 SUM_ERRORS: 0
+               SUM_WARNINGS: 0
+          SUM_ROWS_AFFECTED: 0
+              SUM_ROWS_SENT: 463
+          SUM_ROWS_EXAMINED: 10221395
+SUM_CREATED_TMP_DISK_TABLES: 0
+     SUM_CREATED_TMP_TABLES: 0
+       SUM_SELECT_FULL_JOIN: 0
+ SUM_SELECT_FULL_RANGE_JOIN: 0
+           SUM_SELECT_RANGE: 0
+     SUM_SELECT_RANGE_CHECK: 0
+            SUM_SELECT_SCAN: 469
+      SUM_SORT_MERGE_PASSES: 0
+             SUM_SORT_RANGE: 0
+              SUM_SORT_ROWS: 463
+              SUM_SORT_SCAN: 469
+          SUM_NO_INDEX_USED: 469
+     SUM_NO_GOOD_INDEX_USED: 0
+   MAX_CONTROLLED_MEMORY_MB: 1.163
+        MAX_TOTAL_MEMORY_MB: 1.505
+          QUERY_SAMPLE_TEXT: SELECT * FROM chair_locations WHERE chair_id = '01JX758AWYCBY8XR00KBNBDX3R' ORDER BY created_at DESC LIMIT 1
+QUERY_SAMPLE_TIMER_WAIT_SEC: 0.463
+*************************** 6. row ***************************
+                SCHEMA_NAME: isuride
+                DIGEST_TEXT: SELECT * FROM `ride_statuses` WHERE `ride_id` = ? ORDER BY `created_at`
+                 COUNT_STAR: 1730
+         SUM_TIMER_WAIT_SEC: 124.161
+         MIN_TIMER_WAIT_SEC: 0.004
+         AVG_TIMER_WAIT_SEC: 0.072
+         MAX_TIMER_WAIT_SEC: 0.136
+          SUM_LOCK_TIME_SEC: 0.004
+                        P95: 0.105
+                        P99: 0.115
+                       P999: 0.138
+                 SUM_ERRORS: 0
+               SUM_WARNINGS: 0
+          SUM_ROWS_AFFECTED: 0
+              SUM_ROWS_SENT: 4981
+          SUM_ROWS_EXAMINED: 7901545
+SUM_CREATED_TMP_DISK_TABLES: 0
+     SUM_CREATED_TMP_TABLES: 0
+       SUM_SELECT_FULL_JOIN: 0
+ SUM_SELECT_FULL_RANGE_JOIN: 0
+           SUM_SELECT_RANGE: 0
+     SUM_SELECT_RANGE_CHECK: 0
+            SUM_SELECT_SCAN: 1730
+      SUM_SORT_MERGE_PASSES: 0
+             SUM_SORT_RANGE: 0
+              SUM_SORT_ROWS: 4981
+              SUM_SORT_SCAN: 1730
+          SUM_NO_INDEX_USED: 1730
+     SUM_NO_GOOD_INDEX_USED: 0
+   MAX_CONTROLLED_MEMORY_MB: 1.172
+        MAX_TOTAL_MEMORY_MB: 30.189
+          QUERY_SAMPLE_TEXT: SELECT * FROM ride_statuses WHERE ride_id = '01JX757J0SHC8QK5FCJB0R1B35' ORDER BY created_at
+QUERY_SAMPLE_TIMER_WAIT_SEC: 0.136
+*************************** 7. row ***************************
+                SCHEMA_NAME: isuride
+                DIGEST_TEXT: SELECT * FROM `rides` WHERE `chair_id` = ? ORDER BY `updated_at` DESC LIMIT ?
+                 COUNT_STAR: 10240
+         SUM_TIMER_WAIT_SEC: 60.742
+         MIN_TIMER_WAIT_SEC: 0.001
+         AVG_TIMER_WAIT_SEC: 0.006
+         MAX_TIMER_WAIT_SEC: 0.046
+          SUM_LOCK_TIME_SEC: 0.014
+                        P95: 0.016
+                        P99: 0.023
+                       P999: 0.04
+                 SUM_ERRORS: 0
+               SUM_WARNINGS: 0
+          SUM_ROWS_AFFECTED: 0
+              SUM_ROWS_SENT: 5000
+          SUM_ROWS_EXAMINED: 7834986
+SUM_CREATED_TMP_DISK_TABLES: 0
+     SUM_CREATED_TMP_TABLES: 0
+       SUM_SELECT_FULL_JOIN: 0
+ SUM_SELECT_FULL_RANGE_JOIN: 0
+           SUM_SELECT_RANGE: 0
+     SUM_SELECT_RANGE_CHECK: 0
+            SUM_SELECT_SCAN: 10241
+      SUM_SORT_MERGE_PASSES: 0
+             SUM_SORT_RANGE: 0
+              SUM_SORT_ROWS: 5000
+              SUM_SORT_SCAN: 10241
+          SUM_NO_INDEX_USED: 10241
+     SUM_NO_GOOD_INDEX_USED: 0
+   MAX_CONTROLLED_MEMORY_MB: 1.085
+        MAX_TOTAL_MEMORY_MB: 30.103
+          QUERY_SAMPLE_TEXT: SELECT * FROM rides WHERE chair_id = '01JX7579V74GT2SBAZ82BH8MFX' ORDER BY updated_at DESC LIMIT 1
+QUERY_SAMPLE_TIMER_WAIT_SEC: 0.046
+*************************** 8. row ***************************
+                SCHEMA_NAME: isuride
+                DIGEST_TEXT: SELECT * FROM `chairs` WHERE `access_token` = ?
+                 COUNT_STAR: 10299
+         SUM_TIMER_WAIT_SEC: 40.686
+         MIN_TIMER_WAIT_SEC: 0.001
+         AVG_TIMER_WAIT_SEC: 0.004
+         MAX_TIMER_WAIT_SEC: 0.763
+          SUM_LOCK_TIME_SEC: 0.021
+                        P95: 0.01
+                        P99: 0.017
+                       P999: 0.347
+                 SUM_ERRORS: 0
+               SUM_WARNINGS: 0
+          SUM_ROWS_AFFECTED: 0
+              SUM_ROWS_SENT: 10300
+          SUM_ROWS_EXAMINED: 5360280
+SUM_CREATED_TMP_DISK_TABLES: 0
+     SUM_CREATED_TMP_TABLES: 0
+       SUM_SELECT_FULL_JOIN: 0
+ SUM_SELECT_FULL_RANGE_JOIN: 0
+           SUM_SELECT_RANGE: 0
+     SUM_SELECT_RANGE_CHECK: 0
+            SUM_SELECT_SCAN: 10300
+      SUM_SORT_MERGE_PASSES: 0
+             SUM_SORT_RANGE: 0
+              SUM_SORT_ROWS: 0
+              SUM_SORT_SCAN: 0
+          SUM_NO_INDEX_USED: 10300
+     SUM_NO_GOOD_INDEX_USED: 0
+   MAX_CONTROLLED_MEMORY_MB: 1.044
+        MAX_TOTAL_MEMORY_MB: 30.075
+          QUERY_SAMPLE_TEXT: SELECT * FROM chairs WHERE access_token = 'c973ad606b57dd8e419ad3c83e9248b7fe406ec6333f104f9e905d9fb6187f60'
+QUERY_SAMPLE_TIMER_WAIT_SEC: 0.011
+*************************** 9. row ***************************
+                SCHEMA_NAME: isuride
+                DIGEST_TEXT: COMMIT
+                 COUNT_STAR: 7104
+         SUM_TIMER_WAIT_SEC: 28.545
+         MIN_TIMER_WAIT_SEC: 0
+         AVG_TIMER_WAIT_SEC: 0.004
+         MAX_TIMER_WAIT_SEC: 0.045
+          SUM_LOCK_TIME_SEC: 0
+                        P95: 0.015
+                        P99: 0.024
+                       P999: 0.038
+                 SUM_ERRORS: 0
+               SUM_WARNINGS: 0
+          SUM_ROWS_AFFECTED: 0
+              SUM_ROWS_SENT: 0
+          SUM_ROWS_EXAMINED: 0
+SUM_CREATED_TMP_DISK_TABLES: 0
+     SUM_CREATED_TMP_TABLES: 0
+       SUM_SELECT_FULL_JOIN: 0
+ SUM_SELECT_FULL_RANGE_JOIN: 0
+           SUM_SELECT_RANGE: 0
+     SUM_SELECT_RANGE_CHECK: 0
+            SUM_SELECT_SCAN: 0
+      SUM_SORT_MERGE_PASSES: 0
+             SUM_SORT_RANGE: 0
+              SUM_SORT_ROWS: 0
+              SUM_SORT_SCAN: 0
+          SUM_NO_INDEX_USED: 0
+     SUM_NO_GOOD_INDEX_USED: 0
+   MAX_CONTROLLED_MEMORY_MB: 1.018
+        MAX_TOTAL_MEMORY_MB: 30.034
+          QUERY_SAMPLE_TEXT: COMMIT
+QUERY_SAMPLE_TIMER_WAIT_SEC: 0.045
+*************************** 10. row ***************************
+                SCHEMA_NAME: isuride
+                DIGEST_TEXT: SELECT COUNT ( * ) = ? FROM ( SELECT COUNT ( `chair_sent_at` ) = ? AS `completed` FROM `ride_statuses` WHERE `ride_id` IN ( SELECT `id` FROM `rides` WHERE `chair_id` = ? ) GROUP BY `ride_id` ) `is_completed` WHERE `completed` = FALSE
+                 COUNT_STAR: 42
+         SUM_TIMER_WAIT_SEC: 13.279
+         MIN_TIMER_WAIT_SEC: 0.001
+         AVG_TIMER_WAIT_SEC: 0.316
+         MAX_TIMER_WAIT_SEC: 0.609
+          SUM_LOCK_TIME_SEC: 0
+                        P95: 0.603
+                        P99: 0.631
+                       P999: 0.631
+                 SUM_ERRORS: 0
+               SUM_WARNINGS: 0
+          SUM_ROWS_AFFECTED: 0
+              SUM_ROWS_SENT: 42
+          SUM_ROWS_EXAMINED: 14
+SUM_CREATED_TMP_DISK_TABLES: 0
+     SUM_CREATED_TMP_TABLES: 84
+       SUM_SELECT_FULL_JOIN: 12
+ SUM_SELECT_FULL_RANGE_JOIN: 0
+           SUM_SELECT_RANGE: 0
+     SUM_SELECT_RANGE_CHECK: 0
+            SUM_SELECT_SCAN: 84
+      SUM_SORT_MERGE_PASSES: 0
+             SUM_SORT_RANGE: 0
+              SUM_SORT_ROWS: 0
+              SUM_SORT_SCAN: 0
+          SUM_NO_INDEX_USED: 42
+     SUM_NO_GOOD_INDEX_USED: 0
+   MAX_CONTROLLED_MEMORY_MB: 1.457
+        MAX_TOTAL_MEMORY_MB: 30.452
+          QUERY_SAMPLE_TEXT: SELECT COUNT(*) = 0 FROM (SELECT COUNT(chair_sent_at) = 6 AS completed FROM ride_statuses WHERE ride_id IN (SELECT id FROM rides WHERE chair_id = '01JX7579NZJ66KABC8WWST8JT2') GROUP BY ride_id) is_completed WHERE completed = FALSE
+QUERY_SAMPLE_TIMER_WAIT_SEC: 0.609
+*************************** 11. row ***************************
+                SCHEMA_NAME: isuride
+                DIGEST_TEXT: SELECT * FROM `rides` WHERE `chair_id` = ? ORDER BY `updated_at` DESC
+                 COUNT_STAR: 1462
+         SUM_TIMER_WAIT_SEC: 11.293
+         MIN_TIMER_WAIT_SEC: 0.001
+         AVG_TIMER_WAIT_SEC: 0.008
+         MAX_TIMER_WAIT_SEC: 0.043
+          SUM_LOCK_TIME_SEC: 0.002
+                        P95: 0.028
+                        P99: 0.038
+                       P999: 0.044
+                 SUM_ERRORS: 0
+               SUM_WARNINGS: 0
+          SUM_ROWS_AFFECTED: 0
+              SUM_ROWS_SENT: 1730
+          SUM_ROWS_EXAMINED: 1125814
+SUM_CREATED_TMP_DISK_TABLES: 0
+     SUM_CREATED_TMP_TABLES: 0
+       SUM_SELECT_FULL_JOIN: 0
+ SUM_SELECT_FULL_RANGE_JOIN: 0
+           SUM_SELECT_RANGE: 0
+     SUM_SELECT_RANGE_CHECK: 0
+            SUM_SELECT_SCAN: 1462
+      SUM_SORT_MERGE_PASSES: 0
+             SUM_SORT_RANGE: 0
+              SUM_SORT_ROWS: 1730
+              SUM_SORT_SCAN: 1462
+          SUM_NO_INDEX_USED: 1462
+     SUM_NO_GOOD_INDEX_USED: 0
+   MAX_CONTROLLED_MEMORY_MB: 1.115
+        MAX_TOTAL_MEMORY_MB: 30.13
+          QUERY_SAMPLE_TEXT: SELECT * FROM rides WHERE chair_id = '01JX7579XMBYRWR68XWRQZT3EN' ORDER BY updated_at DESC
+QUERY_SAMPLE_TIMER_WAIT_SEC: 0.043
+*************************** 12. row ***************************
+                SCHEMA_NAME: isuride
+                DIGEST_TEXT: SELECT * FROM `rides` WHERE `user_id` = ? ORDER BY `created_at` DESC LIMIT ?
+                 COUNT_STAR: 1876
+         SUM_TIMER_WAIT_SEC: 11.091
+         MIN_TIMER_WAIT_SEC: 0.001
+         AVG_TIMER_WAIT_SEC: 0.006
+         MAX_TIMER_WAIT_SEC: 0.041
+          SUM_LOCK_TIME_SEC: 0.002
+                        P95: 0.016
+                        P99: 0.023
+                       P999: 0.04
+                 SUM_ERRORS: 0
+               SUM_WARNINGS: 0
+          SUM_ROWS_AFFECTED: 0
+              SUM_ROWS_SENT: 1878
+          SUM_ROWS_EXAMINED: 1444794
+SUM_CREATED_TMP_DISK_TABLES: 0
+     SUM_CREATED_TMP_TABLES: 0
+       SUM_SELECT_FULL_JOIN: 0
+ SUM_SELECT_FULL_RANGE_JOIN: 0
+           SUM_SELECT_RANGE: 0
+     SUM_SELECT_RANGE_CHECK: 0
+            SUM_SELECT_SCAN: 1878
+      SUM_SORT_MERGE_PASSES: 0
+             SUM_SORT_RANGE: 0
+              SUM_SORT_ROWS: 1878
+              SUM_SORT_SCAN: 1878
+          SUM_NO_INDEX_USED: 1878
+     SUM_NO_GOOD_INDEX_USED: 0
+   MAX_CONTROLLED_MEMORY_MB: 1.085
+        MAX_TOTAL_MEMORY_MB: 30.1
+          QUERY_SAMPLE_TEXT: SELECT * FROM rides WHERE user_id = '01JX757A0A22RRYMXA1H5WJAB5' ORDER BY created_at DESC LIMIT 1
+QUERY_SAMPLE_TIMER_WAIT_SEC: 0.041
+*************************** 13. row ***************************
+                SCHEMA_NAME: isuride
+                DIGEST_TEXT: SELECT * FROM `coupons` WHERE `used_by` = ?
+                 COUNT_STAR: 1947
+         SUM_TIMER_WAIT_SEC: 6.477
+         MIN_TIMER_WAIT_SEC: 0
+         AVG_TIMER_WAIT_SEC: 0.003
+         MAX_TIMER_WAIT_SEC: 0.032
+          SUM_LOCK_TIME_SEC: 0.005
+                        P95: 0.017
+                        P99: 0.025
+                       P999: 0.032
+                 SUM_ERRORS: 0
+               SUM_WARNINGS: 0
+          SUM_ROWS_AFFECTED: 0
+              SUM_ROWS_SENT: 1488
+          SUM_ROWS_EXAMINED: 1037472
+SUM_CREATED_TMP_DISK_TABLES: 0
+     SUM_CREATED_TMP_TABLES: 0
+       SUM_SELECT_FULL_JOIN: 0
+ SUM_SELECT_FULL_RANGE_JOIN: 0
+           SUM_SELECT_RANGE: 0
+     SUM_SELECT_RANGE_CHECK: 0
+            SUM_SELECT_SCAN: 1947
+      SUM_SORT_MERGE_PASSES: 0
+             SUM_SORT_RANGE: 0
+              SUM_SORT_ROWS: 0
+              SUM_SORT_SCAN: 0
+          SUM_NO_INDEX_USED: 1947
+     SUM_NO_GOOD_INDEX_USED: 0
+   MAX_CONTROLLED_MEMORY_MB: 1.108
+        MAX_TOTAL_MEMORY_MB: 30.118
+          QUERY_SAMPLE_TEXT: SELECT * FROM coupons WHERE used_by = '01JX758AYJCG4W4E69D7ZG92K6'
+QUERY_SAMPLE_TIMER_WAIT_SEC: 0.032
+*************************** 14. row ***************************
+                SCHEMA_NAME: isuride
+                DIGEST_TEXT: SELECT `rides` . * FROM `rides` JOIN `ride_statuses` ON `rides` . `id` = `ride_statuses` . `ride_id` WHERE `chair_id` = ? AND STATUS = ? AND `updated_at` BETWEEN ? AND ? + INTERVAL ? MICROSECOND
+                 COUNT_STAR: 242
+         SUM_TIMER_WAIT_SEC: 5.826
+         MIN_TIMER_WAIT_SEC: 0.001
+         AVG_TIMER_WAIT_SEC: 0.024
+         MAX_TIMER_WAIT_SEC: 0.199
+          SUM_LOCK_TIME_SEC: 0
+                        P95: 0.158
+                        P99: 0.182
+                       P999: 0.2
+                 SUM_ERRORS: 0
+               SUM_WARNINGS: 0
+          SUM_ROWS_AFFECTED: 0
+              SUM_ROWS_SENT: 259
+          SUM_ROWS_EXAMINED: 912823
+SUM_CREATED_TMP_DISK_TABLES: 0
+     SUM_CREATED_TMP_TABLES: 0
+       SUM_SELECT_FULL_JOIN: 200
+ SUM_SELECT_FULL_RANGE_JOIN: 0
+           SUM_SELECT_RANGE: 0
+     SUM_SELECT_RANGE_CHECK: 0
+            SUM_SELECT_SCAN: 242
+      SUM_SORT_MERGE_PASSES: 0
+             SUM_SORT_RANGE: 0
+              SUM_SORT_ROWS: 0
+              SUM_SORT_SCAN: 0
+          SUM_NO_INDEX_USED: 242
+     SUM_NO_GOOD_INDEX_USED: 0
+   MAX_CONTROLLED_MEMORY_MB: 1.156
+        MAX_TOTAL_MEMORY_MB: 1.328
+          QUERY_SAMPLE_TEXT: SELECT rides.* FROM rides JOIN ride_statuses ON rides.id = ride_statuses.ride_id WHERE chair_id = '01JX7579SJ7A4Q8TAB1FAJ6F0Z' AND status = 'COMPLETED' AND updated_at BETWEEN '1970-01-01 00:00:00.000000' AND '2025-06-08 06:57:05.797000' + INTERVAL 999 MICROSECOND
+QUERY_SAMPLE_TIMER_WAIT_SEC: 0.199
+*************************** 15. row ***************************
+                SCHEMA_NAME: isuride
+                DIGEST_TEXT: SELECT * FROM `users` WHERE `access_token` = ?
+                 COUNT_STAR: 2034
+         SUM_TIMER_WAIT_SEC: 5.672
+         MIN_TIMER_WAIT_SEC: 0
+         AVG_TIMER_WAIT_SEC: 0.003
+         MAX_TIMER_WAIT_SEC: 0.659
+          SUM_LOCK_TIME_SEC: 0.003
+                        P95: 0
+                        P99: 0.001
+                       P999: 0.631
+                 SUM_ERRORS: 0
+               SUM_WARNINGS: 0
+          SUM_ROWS_AFFECTED: 0
+              SUM_ROWS_SENT: 2035
+          SUM_ROWS_EXAMINED: 2035
+SUM_CREATED_TMP_DISK_TABLES: 0
+     SUM_CREATED_TMP_TABLES: 0
+       SUM_SELECT_FULL_JOIN: 0
+ SUM_SELECT_FULL_RANGE_JOIN: 0
+           SUM_SELECT_RANGE: 0
+     SUM_SELECT_RANGE_CHECK: 0
+            SUM_SELECT_SCAN: 0
+      SUM_SORT_MERGE_PASSES: 0
+             SUM_SORT_RANGE: 0
+              SUM_SORT_ROWS: 0
+              SUM_SORT_SCAN: 0
+          SUM_NO_INDEX_USED: 0
+     SUM_NO_GOOD_INDEX_USED: 0
+   MAX_CONTROLLED_MEMORY_MB: 1.044
+        MAX_TOTAL_MEMORY_MB: 30.059
+          QUERY_SAMPLE_TEXT: SELECT * FROM users WHERE access_token = 'd263d2b34ac40802912a687047a0b7b6a7c9c1c416061259dccc281a3e579b37'
+QUERY_SAMPLE_TIMER_WAIT_SEC: 0
+*************************** 16. row ***************************
+                SCHEMA_NAME: isuride
+                DIGEST_TEXT: SELECT * FROM `rides` WHERE `chair_id` = ? ORDER BY `created_at` DESC LIMIT ?
+                 COUNT_STAR: 648
+         SUM_TIMER_WAIT_SEC: 4.462
+         MIN_TIMER_WAIT_SEC: 0.001
+         AVG_TIMER_WAIT_SEC: 0.007
+         MAX_TIMER_WAIT_SEC: 0.043
+          SUM_LOCK_TIME_SEC: 0.001
+                        P95: 0.02
+                        P99: 0.033
+                       P999: 0.044
+                 SUM_ERRORS: 0
+               SUM_WARNINGS: 0
+          SUM_ROWS_AFFECTED: 0
+              SUM_ROWS_SENT: 279
+          SUM_ROWS_EXAMINED: 493243
+SUM_CREATED_TMP_DISK_TABLES: 0
+     SUM_CREATED_TMP_TABLES: 0
+       SUM_SELECT_FULL_JOIN: 0
+ SUM_SELECT_FULL_RANGE_JOIN: 0
+           SUM_SELECT_RANGE: 0
+     SUM_SELECT_RANGE_CHECK: 0
+            SUM_SELECT_SCAN: 648
+      SUM_SORT_MERGE_PASSES: 0
+             SUM_SORT_RANGE: 0
+              SUM_SORT_ROWS: 279
+              SUM_SORT_SCAN: 648
+          SUM_NO_INDEX_USED: 648
+     SUM_NO_GOOD_INDEX_USED: 0
+   MAX_CONTROLLED_MEMORY_MB: 1.065
+        MAX_TOTAL_MEMORY_MB: 1.41
+          QUERY_SAMPLE_TEXT: SELECT * FROM rides WHERE chair_id = '01JX7579X7CKA4HNYCYJEGJNQY' ORDER BY created_at DESC LIMIT 1
+QUERY_SAMPLE_TIMER_WAIT_SEC: 0.043
+*************************** 17. row ***************************
+                SCHEMA_NAME: isuride
+                DIGEST_TEXT: SELECT * FROM `users` WHERE `id` = ? FOR SHARE
+                 COUNT_STAR: 2717
+         SUM_TIMER_WAIT_SEC: 2.3
+         MIN_TIMER_WAIT_SEC: 0
+         AVG_TIMER_WAIT_SEC: 0.001
+         MAX_TIMER_WAIT_SEC: 0.038
+          SUM_LOCK_TIME_SEC: 0.003
+                        P95: 0.005
+                        P99: 0.017
+                       P999: 0.026
+                 SUM_ERRORS: 0
+               SUM_WARNINGS: 0
+          SUM_ROWS_AFFECTED: 0
+              SUM_ROWS_SENT: 2717
+          SUM_ROWS_EXAMINED: 2717
+SUM_CREATED_TMP_DISK_TABLES: 0
+     SUM_CREATED_TMP_TABLES: 0
+       SUM_SELECT_FULL_JOIN: 0
+ SUM_SELECT_FULL_RANGE_JOIN: 0
+           SUM_SELECT_RANGE: 0
+     SUM_SELECT_RANGE_CHECK: 0
+            SUM_SELECT_SCAN: 0
+      SUM_SORT_MERGE_PASSES: 0
+             SUM_SORT_RANGE: 0
+              SUM_SORT_ROWS: 0
+              SUM_SORT_SCAN: 0
+          SUM_NO_INDEX_USED: 0
+     SUM_NO_GOOD_INDEX_USED: 0
+   MAX_CONTROLLED_MEMORY_MB: 1.038
+        MAX_TOTAL_MEMORY_MB: 30.053
+          QUERY_SAMPLE_TEXT: SELECT * FROM users WHERE id = '01JX7588JJ4RCAQB05JVSRJJHB' FOR SHARE
+QUERY_SAMPLE_TIMER_WAIT_SEC: 0.038
+*************************** 18. row ***************************
+                SCHEMA_NAME: isuride
+                DIGEST_TEXT: SELECT * FROM `chairs` WHERE `id` = ?
+                 COUNT_STAR: 1491
+         SUM_TIMER_WAIT_SEC: 1.046
+         MIN_TIMER_WAIT_SEC: 0
+         AVG_TIMER_WAIT_SEC: 0.001
+         MAX_TIMER_WAIT_SEC: 0.045
+          SUM_LOCK_TIME_SEC: 0.002
+                        P95: 0.004
+                        P99: 0.007
+                       P999: 0.042
+                 SUM_ERRORS: 0
+               SUM_WARNINGS: 0
+          SUM_ROWS_AFFECTED: 0
+              SUM_ROWS_SENT: 1491
+          SUM_ROWS_EXAMINED: 1491
+SUM_CREATED_TMP_DISK_TABLES: 0
+     SUM_CREATED_TMP_TABLES: 0
+       SUM_SELECT_FULL_JOIN: 0
+ SUM_SELECT_FULL_RANGE_JOIN: 0
+           SUM_SELECT_RANGE: 0
+     SUM_SELECT_RANGE_CHECK: 0
+            SUM_SELECT_SCAN: 0
+      SUM_SORT_MERGE_PASSES: 0
+             SUM_SORT_RANGE: 0
+              SUM_SORT_ROWS: 0
+              SUM_SORT_SCAN: 0
+          SUM_NO_INDEX_USED: 0
+     SUM_NO_GOOD_INDEX_USED: 0
+   MAX_CONTROLLED_MEMORY_MB: 1.038
+        MAX_TOTAL_MEMORY_MB: 30.068
+          QUERY_SAMPLE_TEXT: SELECT * FROM chairs WHERE id = '01JX7579QR79VDRW2C96W449AC'
+QUERY_SAMPLE_TIMER_WAIT_SEC: 0.045
+*************************** 19. row ***************************
+                SCHEMA_NAME: isuride
+                DIGEST_TEXT: UPDATE `ride_statuses` SET `chair_sent_at` = NOW (?) WHERE `id` = ?
+                 COUNT_STAR: 102
+         SUM_TIMER_WAIT_SEC: 0.955
+         MIN_TIMER_WAIT_SEC: 0
+         AVG_TIMER_WAIT_SEC: 0.009
+         MAX_TIMER_WAIT_SEC: 0.069
+          SUM_LOCK_TIME_SEC: 0.033
+                        P95: 0.044
+                        P99: 0.058
+                       P999: 0.069
+                 SUM_ERRORS: 0
+               SUM_WARNINGS: 0
+          SUM_ROWS_AFFECTED: 102
+              SUM_ROWS_SENT: 0
+          SUM_ROWS_EXAMINED: 102
+SUM_CREATED_TMP_DISK_TABLES: 0
+     SUM_CREATED_TMP_TABLES: 0
+       SUM_SELECT_FULL_JOIN: 0
+ SUM_SELECT_FULL_RANGE_JOIN: 0
+           SUM_SELECT_RANGE: 0
+     SUM_SELECT_RANGE_CHECK: 0
+            SUM_SELECT_SCAN: 0
+      SUM_SORT_MERGE_PASSES: 0
+             SUM_SORT_RANGE: 0
+              SUM_SORT_ROWS: 0
+              SUM_SORT_SCAN: 0
+          SUM_NO_INDEX_USED: 0
+     SUM_NO_GOOD_INDEX_USED: 0
+   MAX_CONTROLLED_MEMORY_MB: 1.022
+        MAX_TOTAL_MEMORY_MB: 30.028
+          QUERY_SAMPLE_TEXT: UPDATE ride_statuses SET chair_sent_at = CURRENT_TIMESTAMP(6) WHERE id = '01JX758D7H21TDJQ1Q68X4XRR4'
+QUERY_SAMPLE_TIMER_WAIT_SEC: 0.069
+*************************** 20. row ***************************
+                SCHEMA_NAME: isuride
+                DIGEST_TEXT: BEGIN
+                 COUNT_STAR: 12325
+         SUM_TIMER_WAIT_SEC: 0.899
+         MIN_TIMER_WAIT_SEC: 0
+         AVG_TIMER_WAIT_SEC: 0
+         MAX_TIMER_WAIT_SEC: 0.031
+          SUM_LOCK_TIME_SEC: 0
+                        P95: 0
+                        P99: 0.001
+                       P999: 0.004
+                 SUM_ERRORS: 0
+               SUM_WARNINGS: 0
+          SUM_ROWS_AFFECTED: 0
+              SUM_ROWS_SENT: 0
+          SUM_ROWS_EXAMINED: 0
+SUM_CREATED_TMP_DISK_TABLES: 0
+     SUM_CREATED_TMP_TABLES: 0
+       SUM_SELECT_FULL_JOIN: 0
+ SUM_SELECT_FULL_RANGE_JOIN: 0
+           SUM_SELECT_RANGE: 0
+     SUM_SELECT_RANGE_CHECK: 0
+            SUM_SELECT_SCAN: 0
+      SUM_SORT_MERGE_PASSES: 0
+             SUM_SORT_RANGE: 0
+              SUM_SORT_ROWS: 0
+              SUM_SORT_SCAN: 0
+          SUM_NO_INDEX_USED: 0
+     SUM_NO_GOOD_INDEX_USED: 0
+   MAX_CONTROLLED_MEMORY_MB: 1.018
+        MAX_TOTAL_MEMORY_MB: 30.034
+          QUERY_SAMPLE_TEXT: BEGIN
+QUERY_SAMPLE_TIMER_WAIT_SEC: 0.031
+20 rows in set (0.00 sec)
