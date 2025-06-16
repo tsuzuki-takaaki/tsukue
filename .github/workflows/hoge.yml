@@ -1,0 +1,14 @@
+name: hoge
+
+on:
+  workflow_dispatch:
+
+jobs:
+  hoge:
+    runs-on: ubuntu-latest
+
+    environment: release
+
+    steps:
+      - name: echo hoge
+        run: echo "hoge"
